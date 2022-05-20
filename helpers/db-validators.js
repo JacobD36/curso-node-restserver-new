@@ -32,11 +32,21 @@ const existeCategoria = async(id) => {
 }
 
 const existeProducto = async(id) => {
-    //Verificar si el id de Categoría existe
+    //Verificar si el id de Producto existe
     const existeID = await Producto.findById(id);
     if (!existeID) {
         throw new Error(`El producto con id: ${id} no existe`);
     }
+}
+
+const coleccionesPermitidas = (coleccion = '', colecciones = []) => {
+    //Validar colecciones permitidas
+    const incluida = colecciones.includes(coleccion);
+    if (!incluida) {
+        throw new Error(`La colección ${coleccion} no está incluída en ${colecciones}`);
+    }
+
+    return true;
 }
 
 module.exports = {
@@ -44,5 +54,6 @@ module.exports = {
     emailExiste,
     existeUsuarioID,
     existeCategoria,
-    existeProducto
+    existeProducto,
+    coleccionesPermitidas
 }
